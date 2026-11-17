@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
+  <link rel="preload" as="fetch" crossorigin href="archive/archive_files.json">
+  <link rel="preload" as="fetch" crossorigin href="BlockedIn_wasm.js">
+  <link rel="preload" as="fetch" crossorigin href="BlockedIn.wasm">
+  <title>BlockedIn</title>
+  <style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		/* ui.BG, so the page and the cleared canvas match while loading. */
+		background-color: #161b2e;
+	}
+
+	body {
+		position: fixed; /* Prevent overscroll */
+		overscroll-behavior: none;
+	}
+
+	/* Disable user selection: in Chrome on Windows, dragging selected text outside the
+	   canvas blocks mouse down/up events to the engine. */
+	body, div {
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none;
+	}
+
+	#app-container {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		overflow: hidden;
+	}
+
+	#canvas-container {
+		position: relative;
+	}
+
+	#canvas {
+		outline: none;
+		border: 0;
+		width: 100%;
+		vertical-align: bottom;
+		/* Touches go to the game, never to page scrolling or zooming. */
+		touch-action: none;
+	}
+
+	#webgl-not-supported {
+		display: none;
+		margin: 3em;
+		color: #e8ecf5;
+		font-family: sans-serif;
+	}
+
+	.canvas-app-progress {
+		position: absolute;
+		background-color: #2e3654;
+		height: 6px;
+		margin-top: -6px;
+		width: 100%;
+	}
+
+	.canvas-app-progress-bar {
+		height: 6px;
+		background-color: #f2a541;
+		transition: transform 1s ease;
+		transform-origin: left;
+		transform: scaleX(1.0);
+	}
+	</style>
+  <script>
+		window["GD_OPTIONS"] = {
+			"gameId": "dcf4a57bc84d46d6b99a378e76e214e3",
+			"onEvent": function(event) {
+				if (typeof window["GD_DEFOLD"] !== 'undefined' && typeof window["GD_DEFOLD"]["onEvent"] !== 'undefined') {
+					window["GD_DEFOLD"]["onEvent"](event);
+				}
+			},
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = 'https://html5.api.gamedistribution.com/main.min.js';
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'gamedistribution-jssdk'));
+	</script>
+ </head>
+ <body>
+  <div id="app-container">
+   <div id="webgl-not-supported">
+    <h1>WebGL is not supported</h1>
+    <p>Your browser can't run this game. Try another browser, or turn on hardware acceleration.</p>
+   </div>
+   <div id="canvas-container">
+    <canvas id="canvas" tabindex="1" width="1280" height="720"></canvas>
+   </div>
+  </div>
+  <script id="prevent-page-scroll">
+		// Inside a portal's iframe, keys, the wheel and touches that would scroll the page around the
+		// game must not. The engine still receives every event.
+		(function() {
+			var scrollKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'PageUp', 'PageDown', 'Home', 'End'];
+			window.addEventListener('keydown', function(event) {
+				if (scrollKeys.indexOf(event.key) !== -1) {
+					event.preventDefault();
+				}
+			});
+			window.addEventListener('wheel', function(event) {
+				event.preventDefault();
+			}, { passive: false });
+			window.addEventListener('touchmove', function(event) {
+				event.preventDefault();
+			}, { passive: false });
+		})();
+	</script>
+  <script id="engine-loader" src="dmloader.js"></script>
+  <script id="engine-start">
+		EngineLoader.load("canvas", "BlockedIn");
+	</script>
+ </body>
+</html>

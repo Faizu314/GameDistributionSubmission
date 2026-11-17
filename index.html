@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Game Review for GameDistribution</title>
+<!--
+	Review page for the GameDistribution QA team. Its only purpose is to host the game where GameDistribution can play it.
+	The developer test harness is in test.html.
+-->
+<style>
+	:root { --bg: #f6f4ff; --fg: #1f1d2b; --muted: #625f75; --panel: #ffffff; --line: #e2def2; --accent: #5b4bdb; --accent-fg: #ffffff; }
+	@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #15141c; --fg: #ecebf3; --muted: #a29fb6; --panel: #1f1e29; --line: #33313f; --accent: #8d80ff; --accent-fg: #15141c; } }
+	* { box-sizing: border-box; }
+	body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+	main { max-width: 1080px; margin: 0 auto; padding: 40px 16px 56px; }
+	.hello { text-align: center; max-width: 680px; margin: 0 auto 28px; }
+	.wave { font-size: 40px; line-height: 1; }
+	h1 { font-size: clamp(26px, 4vw, 36px); margin: 12px 0 8px; letter-spacing: -0.01em; }
+	.lead { font-size: 18px; color: var(--muted); margin: 0; }
+	.stage { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 12px; box-shadow: 0 10px 30px rgba(40, 30, 110, 0.08); }
+	.frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; }
+	.frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+	.bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 12px 4px 2px; }
+	.bar strong { font-size: 18px; }
+	.button { display: inline-block; padding: 8px 16px; border-radius: 999px; background: var(--accent); color: var(--accent-fg); text-decoration: none; font-weight: 600; }
+	.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 28px; }
+	.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+	.card h2 { font-size: 16px; margin: 0 0 6px; }
+	.card p { margin: 0; color: var(--muted); }
+	footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 36px; }
+</style>
+</head>
+<body>
+<main>
+	<section class="hello">
+		<div class="wave" aria-hidden="true">👋</div>
+		<h1>Hello, GameDistribution team!</h1>
+		<p class="lead">Thanks for taking the time to look at our game. This page exists for one reason only: to give you a place to play and review it.</p>
+	</section>
+
+	<section class="stage" aria-label="Game">
+		<div class="frame">
+			<iframe id="game" src="BlockedIn/index.html" title="BlockedIn" allow="autoplay; fullscreen; gamepad"></iframe>
+		</div>
+		<div class="bar">
+			<strong>BlockedIn</strong>
+			<a class="button" href="BlockedIn/index.html" target="_blank" rel="noopener">Open full screen</a>
+		</div>
+	</section>
+
+	<section class="cards">
+		<div class="card">
+			<h2>Just a review page</h2>
+			<p>The game isn't published or promoted here.</p>
+		</div>
+		<div class="card">
+			<h2>Built for GameDistribution</h2>
+			<p>The game is the same web build we'd ship to GameDistribution.</p>
+		</div>
+		<div class="card">
+			<h2>On a phone?</h2>
+			<p>Use <em>Open full screen</em> above to play the game on its own page.</p>
+		</div>
+	</section>
+
+	<footer>Thank you for reviewing, and we look forward to your feedback.</footer>
+</main>
+</body>
+</html>
