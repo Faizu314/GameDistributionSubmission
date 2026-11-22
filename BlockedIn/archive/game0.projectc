@@ -1,14 +1,14 @@
 [project]
 title = BlockedIn
-version = 0.1.0
+version = 0.2.0
 publisher = 
-developer = 
+developer = Phezu
 write_log = 0
 write_log_file = 0
 minimum_log_level = 1
 compress_archive = 1
 dependencies_metadata = 0
-custom_resources = /main/levels/levels.json
+custom_resources = /main/levels/release.json
 title_as_file_name = BlockedIn
 
 [display]
