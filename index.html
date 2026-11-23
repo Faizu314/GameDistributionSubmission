@@ -24,6 +24,8 @@
 	.frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 	.bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 12px 4px 2px; }
 	.bar strong { font-size: 18px; }
+	.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+	button.button { border: 0; font: inherit; cursor: pointer; }
 	.button { display: inline-block; padding: 8px 16px; border-radius: 999px; background: var(--accent); color: var(--accent-fg); text-decoration: none; font-weight: 600; }
 	.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 28px; }
 	.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
@@ -46,7 +48,10 @@
 		</div>
 		<div class="bar">
 			<strong>BlockedIn</strong>
-			<a class="button" href="BlockedIn/index.html" target="_blank" rel="noopener">Open full screen</a>
+			<span class="actions">
+				<button class="button" id="reset" type="button">Delete saved progress</button>
+				<a class="button" href="BlockedIn/index.html" target="_blank" rel="noopener">Open full screen</a>
+			</span>
 		</div>
 	</section>
 
@@ -67,5 +72,12 @@
 
 	<footer>Thank you for reviewing, and we look forward to your feedback.</footer>
 </main>
+<script>
+	document.getElementById('reset').addEventListener('click', function () {
+		if (!confirm('Delete saved progress? The game will restart from level 1.')) return;
+		try { localStorage.removeItem('puzzleproto_progress'); } catch (e) {}
+		document.getElementById('game').contentWindow.location.reload();
+	});
+</script>
 </body>
 </html>
