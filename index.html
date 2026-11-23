@@ -75,8 +75,16 @@
 <script>
 	document.getElementById('reset').addEventListener('click', function () {
 		if (!confirm('Delete saved progress? The game will restart from level 1.')) return;
-		try { localStorage.removeItem('puzzleproto_progress'); } catch (e) {}
-		document.getElementById('game').contentWindow.location.reload();
+		// The game saves with Defold's sys.save, which on the web is an IndexedDB database named "/data".
+		// Unload the game first so it closes the database and can't write its progress back.
+		var game = document.getElementById('game');
+		var src = game.getAttribute('src');
+		game.src = 'about:blank';
+		function restart() { game.src = src; }
+		try {
+			var request = indexedDB.deleteDatabase('/data');
+			request.onsuccess = request.onerror = request.onblocked = restart;
+		} catch (e) { restart(); }
 	});
 </script>
 </body>
